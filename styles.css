@@ -23,17 +23,42 @@ body {
 .calculator {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
   width: 20em;
-  height: 25em;
+  height: 30em;
   padding: 1em;
-  gap: 1em;
+  gap: 0.5em;
   margin-top: auto;
+  text-align: center;
 }
 
-.
-
 .display {
-  width: 100%;
+  width: 25em;
+  height: 6em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 0.5em;
+  text-align: right;
+}
+
+.result {
+  font-size: 2em;
+}
+
+.clear,
+.operation,
+.number {
+  width: 4.1em;
+  height: 3.75em;
+  padding: 1.2em;
+}
+
+.calculate {
+  width: 8.7em;
+  height: 3.75em;
+  padding: 1.2em;
 }
 
 footer {
