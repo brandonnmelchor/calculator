@@ -1,3 +1,3 @@
-# Web-Calculator
+# Calculator
 
-https://brandonnmelchor.github.io/Web-Calculator/
+https://brandonnmelchor.github.io/Calculator/
