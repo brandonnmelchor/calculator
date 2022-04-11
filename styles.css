@@ -57,6 +57,10 @@ body {
   word-wrap: break-word;
 }
 
+.calculation {
+  min-height: 1.3em;
+}
+
 .result {
   font-size: 2em;
 }
