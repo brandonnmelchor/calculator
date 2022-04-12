@@ -2,9 +2,9 @@
 
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
-const multiply = (a, b) => a * b;
-const divide = (a, b) => a / b;
-const modulus = (a, b) => a % b;
+const multiply = (a, b) => (a * b).toFixed(3);
+const divide = (a, b) => (a / b).toFixed(3);
+const modulus = (a, b) => (a % b).toFixed(3);
 
 const calculate = (a, b, operation) => {
   if (operation === "+") return add(a, b);
@@ -30,6 +30,7 @@ numbers.forEach((number) => number.addEventListener("click", inputNumber));
 operations.forEach((operation) => operation.addEventListener("click", inputOperation));
 calculateButton.addEventListener("click", inputCalculation);
 allClear.addEventListener("click", clearAll);
+clear.addEventListener("click", clearCurrentNumber);
 
 // Event Listener Functions
 
@@ -42,8 +43,8 @@ function inputNumber() {
 
 function inputOperation() {
   if (lastInput === "number" && lastNumber !== "") {
-    let a = parseInt(lastNumber);
-    let b = parseInt(currentNumber.textContent);
+    let a = parseFloat(lastNumber);
+    let b = parseFloat(currentNumber.textContent);
     currentNumber.textContent = calculate(a, b, operator);
   }
 
@@ -56,8 +57,8 @@ function inputOperation() {
 
 function inputCalculation() {
   if (lastInput === "calculation" || operator === "") return;
-  let a = parseInt(lastNumber);
-  let b = parseInt(currentNumber.textContent);
+  let a = parseFloat(lastNumber);
+  let b = parseFloat(currentNumber.textContent);
 
   calculations.textContent = `${a} ${operator} ${b} =`;
   currentNumber.textContent = calculate(a, b, operator);
@@ -71,6 +72,11 @@ function clearAll() {
   lastInput = "";
   lastNumber = "";
   operator = "";
+}
+
+function clearCurrentNumber() {
+  if (lastInput === "calculation") clearAll();
+  currentNumber.textContent = "0";
 }
 
 // Work in Progress
