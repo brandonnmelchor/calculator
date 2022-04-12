@@ -34,6 +34,10 @@ clear.addEventListener("click", clearCurrentNumber);
 
 // Event Listener Functions
 
+let lastInput = "";
+let lastNumber = "";
+let operator = "";
+
 function inputNumber() {
   if (lastInput === "calculation") clearAll();
   if (lastInput === "operation" || currentNumber.textContent === "0") currentNumber.textContent = "";
@@ -56,21 +60,19 @@ function inputOperation() {
   lastNumber = currentNumber.textContent;
   operator = this.textContent;
   calculations.textContent = `${lastNumber} ${operator} `;
-
   lastInput = "operation";
 }
 
 function inputCalculation() {
   if (lastInput === "calculation" || operator === "") return;
-  lastNumber = parseFloat(lastNumber);
 
+  lastNumber = parseFloat(lastNumber);
   let a = lastNumber.toString().length >= 10 ? lastNumber.toExponential(2) : lastNumber;
   let b = parseFloat(currentNumber.textContent);
   let output = calculate(a, b, operator);
 
   calculations.textContent = `${a} ${operator} ${b} =`;
   currentNumber.textContent = output.toString().length >= 10 ? output.toExponential(2) : output;
-
   lastInput = "calculation";
 }
 
@@ -89,6 +91,10 @@ function clearCurrentNumber() {
 
 // Work in Progress
 
-let lastInput = "";
-let lastNumber = "";
-let operator = "";
+document.addEventListener("keydown", inputKey);
+
+function inputKey(event) {
+  if (/[0-9.]/g.test(event.key)) {
+    console.log(event.key);
+  }
+}
