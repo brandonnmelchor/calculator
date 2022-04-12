@@ -2,9 +2,9 @@
 
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
-const multiply = (a, b) => (a * b).toFixed(3);
-const divide = (a, b) => (a / b).toFixed(3);
-const modulus = (a, b) => (a % b).toFixed(3);
+const multiply = (a, b) => parseFloat((a * b).toFixed(3));
+const divide = (a, b) => parseFloat((a / b).toFixed(3));
+const modulus = (a, b) => parseFloat((a % b).toFixed(3));
 
 const calculate = (a, b, operation) => {
   if (operation === "+") return add(a, b);
@@ -37,6 +37,9 @@ clear.addEventListener("click", clearCurrentNumber);
 function inputNumber() {
   if (lastInput === "calculation") clearAll();
   if (lastInput === "operation" || currentNumber.textContent === "0") currentNumber.textContent = "";
+  if (currentNumber.textContent.includes(".") && this.textContent === ".") return;
+  if (currentNumber.textContent.length >= 10) return;
+
   currentNumber.textContent += this.textContent;
   lastInput = "number";
 }
@@ -45,7 +48,9 @@ function inputOperation() {
   if (lastInput === "number" && lastNumber !== "") {
     let a = parseFloat(lastNumber);
     let b = parseFloat(currentNumber.textContent);
-    currentNumber.textContent = calculate(a, b, operator);
+    let output = calculate(a, b, operator);
+
+    currentNumber.textContent = output.toString().length >= 10 ? output.toExponential(3) : output;
   }
 
   lastNumber = currentNumber.textContent;
@@ -57,11 +62,14 @@ function inputOperation() {
 
 function inputCalculation() {
   if (lastInput === "calculation" || operator === "") return;
-  let a = parseFloat(lastNumber);
+  lastNumber = parseFloat(lastNumber);
+
+  let a = lastNumber.toString().length >= 10 ? lastNumber.toExponential(3) : lastNumber;
   let b = parseFloat(currentNumber.textContent);
+  let output = calculate(a, b, operator);
 
   calculations.textContent = `${a} ${operator} ${b} =`;
-  currentNumber.textContent = calculate(a, b, operator);
+  currentNumber.textContent = output.toString().length >= 10 ? output.toExponential(3) : output;
 
   lastInput = "calculation";
 }
