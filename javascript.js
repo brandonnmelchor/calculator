@@ -36,18 +36,23 @@ allClear.addEventListener("click", clearAll);
 function inputNumber() {
   if (newStart === true) clearAll();
   if (currentNumber.textContent === "0") currentNumber.textContent = "";
+
+  if (activeOperator === true) {
+    currentNumber.textContent = "";
+    activeOperator = false;
+  }
+
   currentNumber.textContent += this.textContent;
 }
 
 function inputOperation() {
   calculations.textContent += currentNumber.textContent;
-  if (currentNumber.textContent === "") calculations.textContent = calculations.textContent.slice(0, calculations.textContent.length - 3);
+  if (activeOperator === true) calculations.textContent = calculations.textContent.slice(0, calculations.textContent.length - 3);
   calculations.textContent += ` ${this.textContent} `;
 
   previousNumber = currentNumber.textContent;
-  currentNumber.textContent = "";
-
   operator = this.attributes["id"].nodeValue;
+  activeOperator = true;
 }
 
 function inputCalculation() {
@@ -66,6 +71,7 @@ function clearAll() {
   currentNumber.textContent = "0";
   previousNumber = "";
   operator = "";
+  activeOperator = false;
   newStart = false;
 }
 
@@ -73,4 +79,5 @@ function clearAll() {
 
 let previousNumber = "";
 let operator = "";
+let activeOperator = false;
 let newStart = false;
