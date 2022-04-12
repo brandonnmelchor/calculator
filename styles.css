@@ -52,12 +52,12 @@ body {
   text-align: right;
 }
 
-.calculation-display,
+.calculations,
 .current-number {
   word-wrap: break-word;
 }
 
-.calculation-display {
+.calculations {
   min-height: 1.3rem;
 }
 
