@@ -55,7 +55,7 @@ function inputOperation() {
 }
 
 function inputCalculation() {
-  if (operator === "") return;
+  if (operator === "" || lastInput === "calculation") return;
   let a = parseInt(lastNumber);
   let b = parseInt(currentNumber.textContent);
 
