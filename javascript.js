@@ -2,9 +2,9 @@
 
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
-const multiply = (a, b) => parseFloat((a * b).toFixed(3));
-const divide = (a, b) => parseFloat((a / b).toFixed(3));
-const modulus = (a, b) => parseFloat((a % b).toFixed(3));
+const multiply = (a, b) => parseFloat((a * b).toFixed(2));
+const divide = (a, b) => parseFloat((a / b).toFixed(2));
+const modulus = (a, b) => parseFloat((a % b).toFixed(2));
 
 const calculate = (a, b, operation) => {
   if (operation === "+") return add(a, b);
@@ -50,7 +50,7 @@ function inputOperation() {
     let b = parseFloat(currentNumber.textContent);
     let output = calculate(a, b, operator);
 
-    currentNumber.textContent = output.toString().length >= 10 ? output.toExponential(3) : output;
+    currentNumber.textContent = output.toString().length >= 10 ? output.toExponential(2) : output;
   }
 
   lastNumber = currentNumber.textContent;
@@ -64,12 +64,12 @@ function inputCalculation() {
   if (lastInput === "calculation" || operator === "") return;
   lastNumber = parseFloat(lastNumber);
 
-  let a = lastNumber.toString().length >= 10 ? lastNumber.toExponential(3) : lastNumber;
+  let a = lastNumber.toString().length >= 10 ? lastNumber.toExponential(2) : lastNumber;
   let b = parseFloat(currentNumber.textContent);
   let output = calculate(a, b, operator);
 
   calculations.textContent = `${a} ${operator} ${b} =`;
-  currentNumber.textContent = output.toString().length >= 10 ? output.toExponential(3) : output;
+  currentNumber.textContent = output.toString().length >= 10 ? output.toExponential(2) : output;
 
   lastInput = "calculation";
 }
