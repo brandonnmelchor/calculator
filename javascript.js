@@ -6,45 +6,50 @@ const multiply = (a, b) => a * b;
 const divide = (a, b) => a / b;
 const modulus = (a, b) => a % b;
 
-const operator = (a, b) => {
-  add(a, b);
+const calculate = (a, b, operation) => {
+  if (operation === "+") return add(a, b);
+  else if (operation === "-") return subtract(a, b);
+  else if (operation === "*") return multiply(a, b);
+  else if (operation === "/") return divide(a, b);
+  else if (operation === "%") return modulus(a, b);
 };
 
-// Selectors and Event Listeners
+// Selectors
 
-let calculation = document.querySelector(".calculation");
-let result = document.querySelector(".result");
-
+let calculationDisplay = document.querySelector(".calculation-display");
+let currentNumber = document.querySelector(".current-number");
 const numbers = document.querySelectorAll(".number");
-numbers.forEach((number) => number.addEventListener("click", inputNumber));
-
 const operations = document.querySelectorAll(".operation");
+const calculateButton = document.querySelector(".calculate-button");
+const allClear = document.querySelector("#all-clear");
+const clear = document.querySelector("#clear");
+
+// Event Listeners
+
+numbers.forEach((number) => number.addEventListener("click", inputNumber));
 operations.forEach((operation) => operation.addEventListener("click", inputOperation));
+calculateButton.addEventListener("click", calculate);
+allClear.addEventListener("click", clearAll);
 
-const calculate = document.querySelector(".calculate");
-calculate.addEventListener("click", calculateInputs);
-
-//
-
-let currentNumber = "";
-let values = [];
+// Event Listener Functions
 
 function inputNumber() {
-  calculation.textContent += this.textContent;
-  currentNumber += this.textContent;
+  if (currentNumber.textContent === "0") currentNumber.textContent = "";
+  currentNumber.textContent += this.textContent;
 }
 
 function inputOperation() {
-  calculation.textContent += ` ${this.textContent} `;
-
-  values.push(currentNumber);
-  currentNumber = "";
-
-  values.push(this.attributes["id"].nodeValue);
+  calculationDisplay.textContent += `${currentNumber.textContent} ${this.textContent} `;
+  operator = this.attributes["id"].nodeValue;
+  currentNumber.textContent = "";
 }
 
-function calculateInputs() {
-  values.push(currentNumber);
-  result.textContent = "DONE";
-  console.log(values);
+function clearAll() {
+  calculationDisplay.textContent = "";
+  currentNumber.textContent = "0";
 }
+
+// Work Area
+
+let previousNumber = "";
+let operator = "";
