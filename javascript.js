@@ -1,10 +1,10 @@
 // Operations
 
-const add = (a, b) => (a + b).toFixed(3);
-const subtract = (a, b) => (a - b).toFixed(3);
-const multiply = (a, b) => (a * b).toFixed(3);
-const divide = (a, b) => (a / b).toFixed(3);
-const modulus = (a, b) => (a % b).toFixed(3);
+const add = (a, b) => a + b;
+const subtract = (a, b) => a - b;
+const multiply = (a, b) => a * b;
+const divide = (a, b) => a / b;
+const modulus = (a, b) => a % b;
 
 const calculate = (a, b, operation) => {
   if (operation === "+") return add(a, b);
@@ -34,6 +34,7 @@ allClear.addEventListener("click", clearAll);
 // Event Listener Functions
 
 function inputNumber() {
+  if (newStart === true) clearAll();
   if (currentNumber.textContent === "0") currentNumber.textContent = "";
   currentNumber.textContent += this.textContent;
 }
@@ -45,27 +46,31 @@ function inputOperation() {
 
   previousNumber = currentNumber.textContent;
   currentNumber.textContent = "";
+
   operator = this.attributes["id"].nodeValue;
 }
 
 function inputCalculation() {
-  let a = parseFloat(previousNumber).toFixed(3);
-  let b = parseFloat(currentNumber.textContent).toFixed(3);
+  if (operator === "") return;
+  let a = parseInt(previousNumber);
+  let b = parseInt(currentNumber.textContent);
 
-  if (operator !== "") {
-    calculations.textContent += currentNumber.textContent;
-    calculations.textContent += ` ${this.textContent} `;
-    currentNumber.textContent = calculate(a, b, operator);
-    operator = "";
-  }
+  calculations.textContent += `${a} =`;
+  currentNumber.textContent = calculate(a, b, operator);
+  operator = "";
+  newStart = true;
 }
 
 function clearAll() {
   calculations.textContent = "";
   currentNumber.textContent = "0";
+  previousNumber = "";
+  operator = "";
+  newStart = false;
 }
 
-// Work Area
+// Work In Progress
 
 let previousNumber = "";
 let operator = "";
+let newStart = false;
