@@ -9,8 +9,8 @@ const modulus = (a, b) => a % b;
 const calculate = (a, b, operation) => {
   if (operation === "+") return add(a, b);
   else if (operation === "-") return subtract(a, b);
-  else if (operation === "*") return multiply(a, b);
-  else if (operation === "/") return divide(a, b);
+  else if (operation === "\u00d7") return multiply(a, b);
+  else if (operation === "\u00f7") return divide(a, b);
   else if (operation === "%") return modulus(a, b);
 };
 
@@ -34,50 +34,47 @@ allClear.addEventListener("click", clearAll);
 // Event Listener Functions
 
 function inputNumber() {
-  if (newStart === true) clearAll();
-  if (currentNumber.textContent === "0") currentNumber.textContent = "";
-
-  if (activeOperator === true) {
-    currentNumber.textContent = "";
-    activeOperator = false;
-  }
-
+  if (lastInput === "calculation") clearAll();
+  if (lastInput === "operation" || currentNumber.textContent === "0") currentNumber.textContent = "";
   currentNumber.textContent += this.textContent;
+  lastInput = "number";
 }
 
 function inputOperation() {
-  calculations.textContent += currentNumber.textContent;
-  if (activeOperator === true) calculations.textContent = calculations.textContent.slice(0, calculations.textContent.length - 3);
-  calculations.textContent += ` ${this.textContent} `;
+  if (lastInput === "number" && lastNumber !== "") {
+    let a = parseInt(lastNumber);
+    let b = parseInt(currentNumber.textContent);
+    currentNumber.textContent = calculate(a, b, operator);
+  }
 
-  previousNumber = currentNumber.textContent;
-  operator = this.attributes["id"].nodeValue;
-  activeOperator = true;
+  lastNumber = currentNumber.textContent;
+  operator = this.textContent;
+  calculations.textContent = `${lastNumber} ${operator} `;
+
+  lastInput = "operation";
 }
 
 function inputCalculation() {
   if (operator === "") return;
-  let a = parseInt(previousNumber);
+  let a = parseInt(lastNumber);
   let b = parseInt(currentNumber.textContent);
 
-  calculations.textContent += `${a} =`;
+  calculations.textContent = `${a} ${operator} ${b} =`;
   currentNumber.textContent = calculate(a, b, operator);
-  operator = "";
-  newStart = true;
+
+  lastInput = "calculation";
 }
 
 function clearAll() {
   calculations.textContent = "";
   currentNumber.textContent = "0";
-  previousNumber = "";
+  lastInput = "";
+  lastNumber = "";
   operator = "";
-  activeOperator = false;
-  newStart = false;
 }
 
-// Work In Progress
+// Work in Progress
 
-let previousNumber = "";
+let lastInput = "";
+let lastNumber = "";
 let operator = "";
-let activeOperator = false;
-let newStart = false;
