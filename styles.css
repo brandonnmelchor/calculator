@@ -10,6 +10,8 @@
 html {
   font-family: 'Roboto', sans-serif;
   font-size: 20px;
+  font-weight: 600;
+  color: #fcfcfc;
 }
 
 body {
@@ -30,16 +32,17 @@ body {
   padding: 1rem;
   gap: 0.5rem;
   margin-top: auto;
+  background-color: #fcfcfc;
   text-align: center;
-  border: 1px gray solid;
   border-radius: 10px;
+  box-shadow: 0.25rem 0.25rem 0.5rem #26314040;
 }
 
 .calculator div {
   -webkit-user-select: none;
   user-select: none;
-  border: 1px gray solid;
   border-radius: 10px;
+  box-shadow: 0.1rem 0.1rem 0.25rem #26314020;
 }
 
 .display {
@@ -86,6 +89,24 @@ body {
   padding: 1.2rem;
 }
 
+.display {
+  background-color: #7384a5;
+}
+
+.clear,
+.calculate-button {
+  background-color: #f8b6a0;
+}
+
+.operation {
+  background-color: #79b9ab;
+}
+.number,
+.decimal {
+  color: #45526C;
+  background-color: #F8F5F1;
+}
+
 .clear:hover,
 .operation:hover,
 .number:hover,
@@ -98,6 +119,7 @@ footer {
   font-size: 1rem;
   line-height: 2rem;
   margin-top: auto;
+  text-shadow: 0.25rem 0.25rem 0.5rem #26314040;
 }
 
 a,

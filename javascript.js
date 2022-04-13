@@ -101,3 +101,22 @@ function clearCurrentNumber() {
   if (lastInput === "calculation") clearAll();
   currentNumber.textContent = "0";
 }
+
+// Vanta Background
+
+VANTA.NET({
+  el: document.querySelector("html"),
+  mouseControls: false,
+  touchControls: false,
+  gyroControls: false,
+  minHeight: 200.0,
+  minWidth: 200.0,
+  scale: 1.0,
+  scaleMobile: 1.0,
+  color: 0xfcfcfc,
+  backgroundColor: 0x58a796,
+  points: 15.0,
+  maxDistance: 22.0,
+  spacing: 15.0,
+  showDots: false,
+});
