@@ -38,9 +38,11 @@ body {
   box-shadow: 0.25rem 0.25rem 0.5rem #26314040;
 }
 
-.calculator div {
+.calculator div,
+.calculator button {
   -webkit-user-select: none;
   user-select: none;
+  border: none;
   border-radius: 10px;
   box-shadow: 0.1rem 0.1rem 0.25rem #26314020;
 }
@@ -53,6 +55,17 @@ body {
   height: 6rem;
   padding: 0.5em 1rem;
   text-align: right;
+}
+
+button {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fcfcfc;
+}
+
+button:active {
+  transition: transform 0.05s ease-in-out;
+  transform: scale(.98);
 }
 
 .calculations,
