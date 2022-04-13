@@ -24,13 +24,24 @@ const calculateButton = document.querySelector(".calculate-button");
 const allClear = document.querySelector("#all-clear");
 const clear = document.querySelector("#clear");
 
-// Event Listeners
+// Click Event Listeners
 
 numbers.forEach((number) => number.addEventListener("click", inputNumber));
 operations.forEach((operation) => operation.addEventListener("click", inputOperation));
 calculateButton.addEventListener("click", inputCalculation);
 allClear.addEventListener("click", clearAll);
 clear.addEventListener("click", clearCurrentNumber);
+
+// Key Event Listeners
+
+document.addEventListener("keydown", inputKey);
+function inputKey(e) {
+  if ((e.key >= 0 && e.key <= 9) || e.key === ".") inputNumber();
+  if (e.key === "%" || e.key === "/" || e.key === "*" || e.key === "-" || e.key === "+") inputOperation();
+  if (e.key === "Enter") inputCalculation();
+  if (e.key === "Escape") clearAll();
+  if (e.key === "Backspace") clearCurrentNumber();
+}
 
 // Event Listener Functions
 
@@ -39,12 +50,14 @@ let lastNumber = "";
 let operator = "";
 
 function inputNumber() {
+  let number = this.textContent ? this.textContent : event.key;
+
   if (lastInput === "calculation") clearAll();
   if (lastInput === "operation" || currentNumber.textContent === "0") currentNumber.textContent = "";
-  if (currentNumber.textContent.includes(".") && this.textContent === ".") return;
+  if (currentNumber.textContent.includes(".") && number === ".") return;
   if (currentNumber.textContent.length >= 10) return;
 
-  currentNumber.textContent += this.textContent;
+  currentNumber.textContent += number;
   lastInput = "number";
 }
 
@@ -58,7 +71,7 @@ function inputOperation() {
   }
 
   lastNumber = currentNumber.textContent;
-  operator = this.textContent;
+  operator = this.textContent ? this.textContent : event.key === "/" ? "\u00f7" : event.key === "*" ? "\u00d7" : event.key;
   calculations.textContent = `${lastNumber} ${operator} `;
   lastInput = "operation";
 }
@@ -87,14 +100,4 @@ function clearAll() {
 function clearCurrentNumber() {
   if (lastInput === "calculation") clearAll();
   currentNumber.textContent = "0";
-}
-
-// Work in Progress
-
-document.addEventListener("keydown", inputKey);
-
-function inputKey(event) {
-  if (/[0-9.]/g.test(event.key)) {
-    console.log(event.key);
-  }
 }
