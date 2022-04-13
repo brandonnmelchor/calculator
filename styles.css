@@ -141,3 +141,22 @@ a:active {
   color: inherit;
   text-decoration: none;
 }
+
+@media (max-width: 500px) {
+  html {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 400px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 300px) {
+  html {
+    min-width: 250px;
+    font-size: 12px;
+  }
+}
